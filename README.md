@@ -20,6 +20,8 @@ $ sudo make install
 
 ## Usage
 
+AWS credentials are automatically taken from `~/.aws/credentials`. You can use the [official AWS CLI](https://github.com/aws/aws-cli) and run the command `aws configure` to set it up.
+
 ### Commands
 
 * `all` (Alias: `a`)
