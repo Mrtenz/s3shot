@@ -12,6 +12,7 @@ var bucket string
 var uri string
 var compression bool
 var notify bool
+var open bool
 
 func main() {
 	app := cli.NewApp()
@@ -51,6 +52,11 @@ func main() {
 			Name:        "notify,n",
 			Usage:       "get a notification when uploading is finished",
 			Destination: &notify,
+		},
+		cli.BoolFlag{
+			Name:        "open,o",
+			Usage:       "open the browser when uploading is finished",
+			Destination: &open,
 		},
 	}
 
@@ -181,6 +187,13 @@ func handleUpload(contents []byte) error {
 
 	if notify {
 		err := sendNotification(location)
+		if err != nil {
+			return err
+		}
+	}
+
+	if open {
+		_, err := runCommand("xdg-open", location)
 		if err != nil {
 			return err
 		}
