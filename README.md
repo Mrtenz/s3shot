@@ -15,8 +15,10 @@ $ sudo make install
 
 * `maim` to capture the screenshot
 * `xclip` to copy the URL to the clipboard
-* (optional) `notify-send` to get a notification when an image has been uploaded
-* (optional) `pngcrush` to compress images before uploading
+* (optional) `notify-send` to get a notification when an image has been uploaded (`--notify`)
+* (optional) `xdotool` to capture the current active window (`window` command)
+* (optional) `xdg-open` to open the browser when an image has been uploaded (`--open`)
+* (optional) `pngcrush` to compress images before uploading (`--compress`)
 
 ## Usage
 
@@ -53,3 +55,7 @@ AWS credentials are automatically taken from `~/.aws/credentials`. You can use t
 * `--notify` (Alias: `-n`)
 
   Get a notification when uploading is finished
+  
+* `--open` (Alias: `-o`)
+
+  Open the browser when uploading is finished
