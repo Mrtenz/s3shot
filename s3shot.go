@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"gopkg.in/urfave/cli.v1"
 	"log"
 	"os"
@@ -61,7 +60,6 @@ func main() {
 			Aliases: []string{"a"},
 			Usage:   "Capture the whole screen",
 			Action: func(context *cli.Context) error {
-				fmt.Println("")
 				return nil
 			},
 		},
@@ -70,7 +68,18 @@ func main() {
 			Aliases: []string{"w"},
 			Usage:   "Capture the current active window",
 			Action: func(context *cli.Context) error {
-				fmt.Println("Window")
+				window, err := runCommand("xdotool", "getactivewindow")
+				if err != nil {
+					return err
+				}
+
+				image, err := runCommand("maim", "-ui", string(window))
+
+				// Ignore errors, since it likely means the user cancelled manually
+				if err == nil {
+					return handleUpload(image)
+				}
+
 				return nil
 			},
 		},
@@ -83,8 +92,7 @@ func main() {
 
 				// Ignore errors, since it likely means the user cancelled manually
 				if err == nil {
-					err := handleUpload(image)
-					check(err)
+					return handleUpload(image)
 				}
 
 				return nil
@@ -95,12 +103,6 @@ func main() {
 	err := app.Run(os.Args)
 	if err != nil {
 		log.Fatal(err)
-	}
-}
-
-func check(err error) {
-	if err != nil {
-		panic(err)
 	}
 }
 
