@@ -60,6 +60,13 @@ func main() {
 			Aliases: []string{"a"},
 			Usage:   "Capture the whole screen",
 			Action: func(context *cli.Context) error {
+				image, err := runCommand("maim", "-u")
+
+				// Ignore errors, since it likely means the user cancelled manually
+				if err == nil {
+					return handleUpload(image)
+				}
+
 				return nil
 			},
 		},
