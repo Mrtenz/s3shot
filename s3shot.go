@@ -153,7 +153,7 @@ func copyToClipboard(text string) error {
 }
 
 func sendNotification(location string) error {
-	_, err := runCommand("notify-send", "-u low", "Screenshot uploaded", location)
+	_, err := runCommand("notify-send", "Screenshot uploaded", location)
 	return err
 }
 
