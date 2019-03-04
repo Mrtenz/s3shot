@@ -1,12 +1,12 @@
 GOCMD 		= go
 GOBUILD 	= $(GOCMD) build
 GOCLEAN 	= $(GOCMD) clean
-GOGET 		= $(GOCMD) get -u
+GOGET 		= $(GOCMD) get
 GOOS		= linux
 BINARY_NAME	= s3shot
 PREFIX 		= /usr/local
 
-all: dependencies clean build
+all: clean build
 
 build:
 		$(GOBUILD) -ldflags="-s -w" -o $(BINARY_NAME)
@@ -14,10 +14,6 @@ build:
 clean:
 		$(GOCLEAN)
 		rm -f $(BINARY_NAME)
-
-dependencies:
-		$(GOGET) gopkg.in/urfave/cli.v1
-		$(GOGET) github.com/aws/aws-sdk-go
 
 install:
 		mkdir -p $(DESTDIR)$(PREFIX)/bin
