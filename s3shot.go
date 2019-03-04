@@ -193,7 +193,7 @@ func handleUpload(contents []byte) error {
 	}
 
 	if open {
-		_, err := runCommand("xdg-open", location)
+		err := exec.Command("xdg-open", location).Run()
 		if err != nil {
 			return err
 		}
