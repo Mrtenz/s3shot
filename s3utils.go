@@ -31,10 +31,11 @@ func uploadFile(region string, bucket string, filename string, contents []byte) 
 	reader := bytes.NewReader(contents)
 
 	return client.Upload(&s3manager.UploadInput{
-		Bucket:      aws.String(bucket),
-		Key:         aws.String(filename),
-		Body:        reader,
-		ContentType: aws.String("image/png"),
+		Bucket:       aws.String(bucket),
+		Key:          aws.String(filename),
+		Body:         reader,
+		ContentType:  aws.String("image/png"),
+		CacheControl: aws.String("public, max-age=31536000"),
 	})
 }
 
